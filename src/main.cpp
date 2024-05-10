@@ -5,14 +5,6 @@ void increment_ten_milliseconds() {
     ten_milliseconds++;
     ten_milliseconds%=50000;
 }
-// =================================================
-// * Recitation 5: SPI and Gyroscope *
-// =================================================
-
-// TODOs:
-// [1] Get started with an SPI object instance and connect to the Gyroscope!
-// [2] Read the XYZ axis from the Gyroscope and Visualize on the Teleplot. 
-// [3] Fetching Data from the sensor via Polling vs Interrupt ?
 
 // Define control register addresses and their configurations
 #define CTRL_REG1 0x20
@@ -34,13 +26,17 @@ void spi_cb(int event)
 
 int main()
 {
-    // Initialize the SPI object with specific pins.
+    // Initialize the LEDs.
     DigitalOut led1(LED1,0), led2(LED2,0);
+
+    // Initialize the SPI object with specific pins.
     SPI spi(PF_9, PF_8, PF_7, PC_1, use_gpio_ssel);
     ticker.attach(&increment_ten_milliseconds, 0.01);
+
     // Buffers for sending and receiving data over SPI.
     uint8_t write_buf[32], read_buf[32];
     uint8_t steady;
+
     // Configure SPI format and frequency.
     spi.format(8, 3);
     spi.frequency(1'000'000);
@@ -58,6 +54,7 @@ int main()
     flags.wait_all(SPI_FLAG);
     uint16_t begin_time;
 
+    //set the FTT parameters
     float a[5] = {1.00000000, -0.48243073, 0.81005581, -0.22687555, 0.27221494};
     float b[5] = {0.13110644, 0.00000000, -0.26221288, 0.00000000, 0.13110644};
 
@@ -66,6 +63,7 @@ int main()
     int16_t out_delay[5] = {0};
     int16_t avg_gy=0;
     int16_t parkinson_signal=0;
+
     while(1){
         
         uint16_t raw_gx, raw_gy, raw_gz;
@@ -113,6 +111,8 @@ int main()
             //printf(">x_axis: %d|g \n", gx);
             //printf(">y_axis: %d|g \n", abs(out_delay[0]));
             //printf(">z_axis: %d|g \n", gz);
+        
+        //detect if the patient is 
         if (abs(gx)+abs(gz)<50){
             steady=1;
         }
@@ -135,7 +135,7 @@ int main()
         }
 
         //determine if the status keeps for 30s, if is, red light is on.
-        if (parkinson_signal>600){
+        if (parkinson_signal>200){
             if (avg_gy>20){
                 //if the tremor is serious, the red light will flash instead of keep being on.
                 led2=!led2;
