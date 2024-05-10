@@ -2,8 +2,8 @@
 This is the code of Spring2024 Embedded Challange
 A wearable Parkinsonian tremor detector using only STM32 F429 Discovery board with its embedded gyroscope
 ## Team Members 
-Huaqiu Liu hl5398
-Khushi Sharma ks7406 
+Huaqiu Liu hl5398,
+Khushi Sharma ks7406,
 Nitisha Shetty ns6108
 ## Main Functions
 ### Tremor detection
