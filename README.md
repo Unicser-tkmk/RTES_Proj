@@ -14,3 +14,7 @@ wrist) is completely supported, and is minimal or absent during activity.
 ### Intensity Identification
 Our device can detect the intensity of a detected tremor, and use different ways to notify the situation.
 We use static red light to inform a detected tremor, and a flashing red light to inform a serious tremor.
+
+
+https://github.com/Unicser-tkmk/RTES_Proj/assets/67886071/71ca7128-5f8d-4f61-a730-ba415c8c51a1
+
