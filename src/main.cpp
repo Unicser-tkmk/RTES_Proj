@@ -1,3 +1,6 @@
+//RTES Project
+//Team Members: Huaqiu Liu hl5398, Khushi Sharma ks7406, Nitisha Shetty ns6108
+
 #include <mbed.h>
 Ticker ticker;
 volatile int ten_milliseconds = 0;
